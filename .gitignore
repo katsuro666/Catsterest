@@ -3,3 +3,4 @@ node_modules/
 *.tsbuildinfo
 .vscode
 .DS_Store
+.env
