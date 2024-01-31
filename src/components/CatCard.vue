@@ -30,11 +30,7 @@
 
 <script setup lang="ts">
 import { defineProps, ref } from 'vue';
-
-import { favorite_border } from '@quasar/extras/material-icons';
-import { favorite } from '@quasar/extras/material-icons';
 import { CatEntity } from '../entities/CatEntity';
-
 import { useFavoritesStore } from '../stores/FavoritesStore';
 
 const showHeartOutlined = ref(false);
