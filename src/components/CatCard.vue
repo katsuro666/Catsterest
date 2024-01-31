@@ -1,11 +1,6 @@
 <template>
   <div class="card" @mouseover="showHeartOutlined = true" @mouseleave="showHeartOutlined = false">
-    <q-img
-      :src="props.cat.url"
-      spinner-color="primary"
-      alt="cat"
-      class="cat-img"
-    />
+    <q-img :src="props.cat.url" spinner-color="primary" alt="cat" class="cat-img" />
 
     <q-btn
       v-if="showHeartOutlined && !showHeart"
@@ -17,7 +12,7 @@
       class="heart-icon"
       @mouseenter="showHeart = true" />
     <q-btn
-      v-if="showHeart || store.inFavorites(props.cat.url)"
+      v-if="showHeart || store.isInFavorites(props.cat.id)"
       flat
       round
       color="red"
@@ -25,7 +20,7 @@
       icon="favorite"
       class="heart-icon"
       @mouseleave="showHeart = false"
-      @click="addToFavorites(props.cat.url)" />
+      @click="store.addToFavorites(props.cat)" />
   </div>
 </template>
 
@@ -43,11 +38,7 @@ const showHeart = ref(false);
 
 const props = defineProps<{ cat: CatEntity }>();
 
-const store = useFavoritesStore()
-
-function addToFavorites(item: string) {
-  store.addToFavorites(item)
-}
+const store = useFavoritesStore();
 </script>
 
 <style scoped lang="scss">

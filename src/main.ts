@@ -1,10 +1,10 @@
 import { createApp } from 'vue';
-import { createPinia } from 'pinia';
 import { LoadingBar, Quasar } from 'quasar';
 
 import './style.css';
 import App from './App.vue';
 import router from './router';
+import { createPinia } from 'pinia';
 
 import '@quasar/extras/material-icons/material-icons.css';
 import 'quasar/src/css/index.sass';

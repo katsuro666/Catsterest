@@ -1,31 +1,44 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { ref, onBeforeMount } from 'vue';
+import { CatEntity } from '../entities/CatEntity';
 
 export const useFavoritesStore = defineStore('favorites', () => {
-  const favorites = ref<string[]>([]);
+  const favorites = ref<CatEntity[]>([]);
 
-  function inFavorites(item: string) {
-    return favorites.value.includes(item);
+  onBeforeMount(() => {
+    const storedFavorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    favorites.value = Array.isArray(storedFavorites) ? storedFavorites : [];
+  });
+
+  function updateLocalStorage() {
+    localStorage.setItem('favorites', JSON.stringify(favorites.value));
   }
-  
-  function addToFavorites(item: string) {
-    if (!favorites.value.includes(item)) {
-      favorites.value.push(item);
+
+  function isInFavorites(id: string) {
+    return favorites.value.some((cat) => cat.id === id);
+  }
+
+  function addToFavorites(cat: CatEntity) {
+    if (!isInFavorites(cat.id)) {
+      favorites.value.push(cat);
+      updateLocalStorage();
     } else {
-      removeFromFavorites(item);
+      removeFromFavorites(cat.id);
     }
   }
 
-  function removeFromFavorites(item: string) {
-    const index = favorites.value.indexOf(item);
+  function removeFromFavorites(id: string) {
+    const index = favorites.value.findIndex((cat) => cat.id === id);
     if (index !== -1) {
       favorites.value.splice(index, 1);
+      updateLocalStorage();
     }
   }
 
   function clearFavorites() {
     favorites.value = [];
+    updateLocalStorage();
   }
 
-  return { favorites, inFavorites, addToFavorites, removeFromFavorites, clearFavorites };
+  return { favorites, isInFavorites, addToFavorites, removeFromFavorites, clearFavorites };
 });

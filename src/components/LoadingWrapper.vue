@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 
-const props = defineProps({
+defineProps({
   isLoading: {
     type: Boolean,
     required: true,
@@ -27,7 +27,6 @@ const props = defineProps({
   justify-content: center;
   grid-template-columns: repeat(auto-fill, 225px);
   gap: 48px;
-  // margin-top: 4rem;
 
   @media (max-width: $breakpoint-mobile) {
     display: flex;
