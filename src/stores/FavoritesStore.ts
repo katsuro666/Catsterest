@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia';
 import { ref, onBeforeMount } from 'vue';
 import { CatEntity } from '../entities/CatEntity';
+import { showAddNewCatNotification, showDeleteAllCatsNotification, showDeleteCatNotification } from '../utils/notificationUtils';
 
 export const useFavoritesStore = defineStore('favorites', () => {
+
   const favorites = ref<CatEntity[]>([]);
 
   onBeforeMount(() => {
@@ -22,6 +24,7 @@ export const useFavoritesStore = defineStore('favorites', () => {
     if (!isInFavorites(cat.id)) {
       favorites.value.push(cat);
       updateLocalStorage();
+      showAddNewCatNotification();
     } else {
       removeFromFavorites(cat.id);
     }
@@ -32,12 +35,14 @@ export const useFavoritesStore = defineStore('favorites', () => {
     if (index !== -1) {
       favorites.value.splice(index, 1);
       updateLocalStorage();
+      showDeleteCatNotification();
     }
   }
 
   function clearFavorites() {
     favorites.value = [];
     updateLocalStorage();
+    showDeleteAllCatsNotification();
   }
 
   return { favorites, isInFavorites, addToFavorites, removeFromFavorites, clearFavorites };

@@ -2,6 +2,7 @@
   <LoadingWrapper :isLoading="isLoading">
     <CatCard v-for="cat in store.favorites" :key="cat.id" :cat="cat" />
   </LoadingWrapper>
+
 </template>
 
 <script setup lang="ts">
@@ -12,9 +13,13 @@ import CatCard from '../components/CatCard.vue';
 
 const isLoading = ref(false);
 
-// const catsArr = ref(store.favorites || )
-
 const store = useFavoritesStore();
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.favorites-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>

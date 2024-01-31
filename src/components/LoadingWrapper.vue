@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <div v-if="isLoading" class="loading">
-      <q-circular-progress indeterminate rounded size="50px" color="primary" />
-    </div>
+  <div v-if="isLoading" class="loading">
+    <q-circular-progress indeterminate rounded size="50px" color="primary" />
+  </div>
 
-    <div v-else class="content">
-      <slot></slot>
-    </div>
+  <div v-else class="content">
+    <slot></slot>
   </div>
 </template>
 

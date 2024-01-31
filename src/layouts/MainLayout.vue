@@ -1,17 +1,18 @@
 <template>
-  <div class="content-wrapper">
-    <div class="header">
-      <router-link :to="RoutePaths.MAIN" class="header-link" activeClass="header-link-active">Все котики</router-link>
+  <div class="header">
+    <router-link :to="RoutePaths.MAIN" class="header-link" activeClass="header-link-active">Все котики</router-link>
 
-      <router-link :to="RoutePaths.FAVORITES" class="header-link" activeClass="header-link-active">
-        Любимые котики
-      </router-link>
-    </div>
-    <router-view class="main" />
+    <router-link :to="RoutePaths.FAVORITES" class="header-link" activeClass="header-link-active">
+      Любимые котики
+    </router-link>
+    
   </div>
+  <favorites-header v-if="$route.path === RoutePaths.FAVORITES" />
+  <router-view class="main" />
 </template>
 
 <script setup lang="ts">
+import FavoritesHeader from '../components/FavoritesHeader.vue';
 import { RoutePaths } from '../constants/route.constants';
 </script>
 
@@ -24,11 +25,13 @@ import { RoutePaths } from '../constants/route.constants';
   display: flex;
   align-items: center;
   background-color: $primary;
-  height: 4rem;
+  height: $header-height;
   padding: 0 4rem;
   position: fixed;
   width: 100%;
   z-index: 10;
+  font-size: 16px;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
 
   @media (max-width: $breakpoint-mobile) {
     padding: 1rem;
@@ -37,10 +40,16 @@ import { RoutePaths } from '../constants/route.constants';
 }
 
 .main {
-  padding: 5rem 3rem 24px;
+  padding-top: calc($header-height + 3rem);
+  padding-right: 3rem;
+  padding-bottom: 24px;
+  padding-left: 3rem;
 
   @media (max-width: $breakpoint-mobile) {
-    padding: 5rem 1rem;
+    padding-top: calc($header-height + 5rem);
+    padding-right: 1rem;
+    padding-bottom: 4rem;
+    padding-left: 1rem;
     justify-content: space-between;
   }
 }

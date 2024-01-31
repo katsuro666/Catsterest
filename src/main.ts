@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import { LoadingBar, Quasar } from 'quasar';
+import { LoadingBar, Quasar, Notify } from 'quasar';
 
 import './style.css';
 import App from './App.vue';
@@ -16,6 +16,7 @@ app.use(pinia);
 app.use(Quasar, {
   plugins: {
     LoadingBar,
+    Notify,
   },
   config: {
     loadingBar: { position: 'bottom', reverse: false, color: 'primary', size:'10px' },
