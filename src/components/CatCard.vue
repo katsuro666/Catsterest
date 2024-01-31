@@ -1,6 +1,10 @@
 <template>
   <div class="card" @mouseover="showHeartOutlined = true" @mouseleave="showHeartOutlined = false">
-    <q-img :src="props.cat.url" spinner-color="primary" alt="cat" class="cat-img" />
+    <q-img :src="props.cat.url" alt="cat" class="cat-img">
+      <template v-slot:loading>
+        <q-img src="/public/maxwell-loader.gif" />
+      </template>
+    </q-img>
 
     <q-btn
       v-if="showHeartOutlined && !showHeart"
