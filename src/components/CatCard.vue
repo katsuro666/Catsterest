@@ -1,39 +1,86 @@
 <template>
-  <div class="card">
+  <div class="card" @mouseover="showHeartOutlined = true" @mouseleave="showHeartOutlined = false">
     <q-img
       :src="props.cat.url"
       spinner-color="primary"
       alt="cat"
       class="cat-img"
     />
-    
+
+    <q-btn
+      v-if="showHeartOutlined && !showHeart"
+      flat
+      round
+      color="red"
+      size="xl"
+      icon="favorite_border"
+      class="heart-icon"
+      @mouseenter="showHeart = true" />
+    <q-btn
+      v-if="showHeart || store.inFavorites(props.cat.url)"
+      flat
+      round
+      color="red"
+      size="xl"
+      icon="favorite"
+      class="heart-icon"
+      @mouseleave="showHeart = false"
+      @click="addToFavorites(props.cat.url)" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps, ref } from 'vue';
+
+import { favorite_border } from '@quasar/extras/material-icons';
+import { favorite } from '@quasar/extras/material-icons';
 import { CatEntity } from '../entities/CatEntity';
 
+import { useFavoritesStore } from '../stores/FavoritesStore';
+
+const showHeartOutlined = ref(false);
+const showHeart = ref(false);
+
 const props = defineProps<{ cat: CatEntity }>();
+
+const store = useFavoritesStore()
+
+function addToFavorites(item: string) {
+  store.addToFavorites(item)
+}
 </script>
 
 <style scoped lang="scss">
 .card {
+  position: relative;
   width: 225px;
   height: 225px;
   transition: all ease 0.1s;
 
   &:hover {
-    cursor: pointer;
     scale: 1.1;
     -webkit-box-shadow: 0px 8px 12px 0px rgba(34, 60, 80, 0.55);
     -moz-box-shadow: 0px 8px 12px 0px rgba(34, 60, 80, 0.55);
     box-shadow: 0px 8px 12px 0px rgba(34, 60, 80, 0.55);
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    width: 100%;
+    height: 100%;
   }
 }
 
 .cat-img {
   width: 100%;
   height: 100%;
+}
+
+.heart-icon,
+.heart-icon-outlined {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
 }
 </style>

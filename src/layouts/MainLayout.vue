@@ -37,11 +37,10 @@ import { RoutePaths } from '../constants/route.constants';
 }
 
 .main {
-  padding-top: 4rem;
-  padding: 48px 4rem 24px;
+  padding: 5rem 3rem 24px;
 
   @media (max-width: $breakpoint-mobile) {
-    padding: 1rem;
+    padding: 5rem 1rem;
     justify-content: space-between;
   }
 }
