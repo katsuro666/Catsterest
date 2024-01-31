@@ -1,6 +1,6 @@
 <template>
   <div v-if="isLoading" class="loading">
-    <q-img src="/public/meme-loader.gif" width="250px" height="250px" />
+    <q-img src="../assets/loaders/meme-loader.gif" width="250px" height="250px" />
   </div>
 
   <div v-else class="content">
