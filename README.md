@@ -10,3 +10,7 @@
 ## Стек:
 
 Vue, vue-router, Qasar, Pinia, Axios, Vite, TypeScript, SCSS
+
+## Деплой
+
+https://catsterest.vercel.app/
