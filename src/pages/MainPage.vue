@@ -1,6 +1,6 @@
-<template>  
+<template>
   <LoadingWrapper :isLoading="isLoading">
-      <CatCard v-for="cat in catsArr" :key="cat.id" :cat="cat" />
+    <CatCard v-for="cat in catsArr" :key="cat.id" :cat="cat" />
   </LoadingWrapper>
 </template>
 
@@ -17,7 +17,7 @@ const isLoading = ref(false);
 async function getCats() {
   isLoading.value = true;
   const response = await axios.get(
-    `https://api.thecatapi.com/v1/images/search?limit=30&api_key=${import.meta.env.VITE_API_KEY}`
+    `https://api.thecatapi.com/v1/images/search?limit=60&api_key=${import.meta.env.VITE_API_KEY}`
   );
   catsArr.value = response.data;
   isLoading.value = false;
@@ -26,5 +26,4 @@ async function getCats() {
 onMounted(getCats);
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
